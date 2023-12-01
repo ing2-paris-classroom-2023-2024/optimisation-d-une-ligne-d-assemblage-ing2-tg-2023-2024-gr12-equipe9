@@ -1,21 +1,5 @@
 #include "Graphe.h"
 
-/* affichage des successeurs du sommet num*/
-void afficher_successeurs(pSommet * sommet, int num)
-{
-
-    printf(" sommet %d :\n",num);
-
-    pArc arc=sommet[num]->arc;
-
-    while(arc!=NULL)
-    {
-        printf("%d ",arc->sommet);
-        arc=arc->arc_suivant;
-    }
-
-}
-
 /* Ajouter l'arête entre les sommets s1 et s2 du graphe */
 pSommet* CreerArete(pSommet* sommet,int s1,int s2)
 {
@@ -25,13 +9,14 @@ pSommet* CreerArete(pSommet* sommet,int s1,int s2)
         Newarc->sommet=s2;
         Newarc->arc_suivant=NULL;
         sommet[s1]->arc=Newarc;
-        return sommet; // retourne le sommet avec l'arc
+        return sommet;
     }
+
 
     else
     {
         pArc temp=sommet[s1]->arc;
-        while( !(temp->arc_suivant==NULL))
+        while( temp->arc_suivant!=NULL)
         {
             temp=temp->arc_suivant;
         }
@@ -45,14 +30,13 @@ pSommet* CreerArete(pSommet* sommet,int s1,int s2)
             Newarc->sommet=temp->sommet;
             temp->sommet=s2;
             temp->arc_suivant=Newarc;
-            return sommet; // retourne le sommet avec l'arc
+            return sommet;
         }
 
         temp->arc_suivant=Newarc;
-        return sommet; // retourne le sommet avec l'arc
+        return sommet;
     }
 }
-
 /* créer le graphe */
 Graphe* CreerGraphe(int ordre)
 {
