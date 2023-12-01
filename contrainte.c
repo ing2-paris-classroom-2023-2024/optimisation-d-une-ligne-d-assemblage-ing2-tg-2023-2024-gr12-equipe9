@@ -15,6 +15,7 @@ int exclus_present(int ope,t_station* station,t_graphe *g){
     return 0;  // retourne 0 si pas d'exclusion entre deux sommets
 }
 
+/* fonction permettant de vérifie la contrainte de precedence entre deux sommets*/
 int pred_present(int ope,t_station* station,t_graphe *g){
     int compteur=0;
     int i,j;
@@ -23,6 +24,7 @@ int pred_present(int ope,t_station* station,t_graphe *g){
     if(g->pSommet[ope]->nb_pred==0) {
         return 1;
     }
+    /* parcours du graphe pour trouver les operations de precedence */
     while (station!=NULL) {
         if(g->pSommet[ope]->nb_pred!=0) {
             for (i = 0; i < station->taille; i++) {
@@ -34,11 +36,11 @@ int pred_present(int ope,t_station* station,t_graphe *g){
         }
         station=station->station_suivant;
     }
-
+     /* retourne le resultat */
     if(compteur==g->pSommet[ope]->nb_pred) {
-        return 1;
+        return 1; // return 1 si pas de precedences
     }
     else {
-        return 0;
+        return 0; // return 0 si precedences
     }
 }
