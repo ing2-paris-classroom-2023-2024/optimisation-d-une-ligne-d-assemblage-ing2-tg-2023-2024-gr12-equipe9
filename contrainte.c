@@ -23,4 +23,22 @@ int pred_present(int ope,t_station* station,t_graphe *g){
     if(g->pSommet[ope]->nb_pred==0) {
         return 1;
     }
+    while (station!=NULL) {
+        if(g->pSommet[ope]->nb_pred!=0) {
+            for (i = 0; i < station->taille; i++) {
+                for (j = 0; j < g->pSommet[ope]->nb_pred ; ++j) {
+                    if (station->pSommet[i]->ope == g->pSommet[ope]->predecesseur[j])
+                        compteur++;
+                }
+            }
+        }
+        station=station->station_suivant;
+    }
+
+    if(compteur==g->pSommet[ope]->nb_pred) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
