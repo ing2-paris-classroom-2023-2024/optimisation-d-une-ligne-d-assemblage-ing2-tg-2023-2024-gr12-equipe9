@@ -44,3 +44,12 @@ int pred_present(int ope,t_station* station,t_graphe *g){
         return 0; // return 0 si precedences
     }
 }
+
+int sommet_en_ope(int sommet, t_graphe *graphe){
+    int i;
+    for(i=0; i<graphe->ordre; i++){
+        if(i==sommet)
+            return graphe->pSommet[i]->ope;
+    }
+    return -1;
+}
