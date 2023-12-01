@@ -14,3 +14,13 @@ int exclus_present(int ope,t_station* station,t_graphe *g){
     }
     return 0;  // retourne 0 si pas d'exclusion entre deux sommets
 }
+
+int pred_present(int ope,t_station* station,t_graphe *g){
+    int compteur=0;
+    int i,j;
+    ope= ope_en_sommet(ope,g);
+    station=station->station_initial;
+    if(g->pSommet[ope]->nb_pred==0) {
+        return 1;
+    }
+}
