@@ -16,7 +16,7 @@ void afficher_successeurs(pSommet * sommet, int num)
 
 }
 
-// Ajouter l'arête entre les sommets s1 et s2 du graphe
+/* Ajouter l'arête entre les sommets s1 et s2 du graphe */
 pSommet* CreerArete(pSommet* sommet,int s1,int s2)
 {
     if(sommet[s1]->arc==NULL)
@@ -25,7 +25,7 @@ pSommet* CreerArete(pSommet* sommet,int s1,int s2)
         Newarc->sommet=s2;
         Newarc->arc_suivant=NULL;
         sommet[s1]->arc=Newarc;
-        return sommet;
+        return sommet; // retourne le sommet avec l'arc
     }
 
     else
@@ -45,21 +45,22 @@ pSommet* CreerArete(pSommet* sommet,int s1,int s2)
             Newarc->sommet=temp->sommet;
             temp->sommet=s2;
             temp->arc_suivant=Newarc;
-            return sommet;
+            return sommet; // retourne le sommet avec l'arc
         }
 
         temp->arc_suivant=Newarc;
-        return sommet;
+        return sommet; // retourne le sommet avec l'arc
     }
 }
 
-// créer le graphe
+/* créer le graphe */
 Graphe* CreerGraphe(int ordre)
 {
+    int i;
     Graphe * Newgraphe=(Graphe*)malloc(sizeof(Graphe));
     Newgraphe->pSommet = (pSommet*)malloc(ordre*sizeof(pSommet));
 
-    for(int i=0; i<ordre; i++)
+    for(i=0; i<ordre; i++)
     {
         Newgraphe->pSommet[i]=(pSommet)malloc(sizeof(struct Sommet));
         Newgraphe->pSommet[i]->valeur=i;
@@ -93,7 +94,7 @@ Graphe * lire_graphe(char * nomFichier)
     graphe->orientation=orientation;
     graphe->ordre=ordre;
 
-    // créer les arêtes du graphe
+    /* crée les arêtes du graphe */
     for (int i=0; i<taille; ++i)
     {
         fscanf(ifs,"%d%d",&s1,&s2);
@@ -103,5 +104,5 @@ Graphe * lire_graphe(char * nomFichier)
             graphe->pSommet=CreerArete(graphe->pSommet, s2, s1);
     }
 
-    return graphe;
+    return graphe; // retourne le graphe cree
 }
