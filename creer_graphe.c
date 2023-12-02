@@ -99,3 +99,17 @@ Graphe * lire_graphe(char * nomFichier)
 
     return graphe; // retourne le graphe cree
 }
+
+/* verification si existance du sommet */
+int ope_existe(int ope, t_graphe *graphe)
+{
+    int i;
+    for (i = 0; i < graphe->ordre; i++)
+    {
+        if (graphe->pSommet[i]->ope == ope)
+        {
+            return 1; // retourne 1 si vrai
+        }
+    }
+    return 0; // 0 sinon
+}
