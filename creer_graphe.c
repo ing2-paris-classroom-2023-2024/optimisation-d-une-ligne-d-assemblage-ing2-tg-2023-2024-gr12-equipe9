@@ -1,3 +1,43 @@
+#include "Graphe.h"
+
+/* Ajouter l'arête entre les sommets s1 et s2 du graphe */
+pSommet* CreerArete(pSommet* sommet,int s1,int s2)
+{
+    if(sommet[s1]->arc==NULL)
+    {
+        pArc Newarc=(pArc)malloc(sizeof(struct Arc));
+        Newarc->sommet=s2;
+        Newarc->arc_suivant=NULL;
+        sommet[s1]->arc=Newarc;
+        return sommet;
+    }
+
+
+    else
+    {
+        pArc temp=sommet[s1]->arc;
+        while( temp->arc_suivant!=NULL)
+        {
+            temp=temp->arc_suivant;
+        }
+        pArc Newarc=(pArc)malloc(sizeof(struct Arc));
+        Newarc->sommet=s2;
+        Newarc->arc_suivant=NULL;
+
+        if(temp->sommet>s2)
+        {
+            Newarc->arc_suivant=temp->arc_suivant;
+            Newarc->sommet=temp->sommet;
+            temp->sommet=s2;
+            temp->arc_suivant=Newarc;
+            return sommet;
+        }
+
+        temp->arc_suivant=Newarc;
+        return sommet;
+    }
+}
+
 /* creer le graphe */
 t_graphe* CreerGraphe(FILE *fichier)
 {   
