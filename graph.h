@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#define INFINI 9999999
 
 /* Structure d'un arc/
 struct Arc
@@ -19,11 +19,13 @@ typedef struct Arc pArc;
 /* Structure d'un sommet/
 struct Sommet
 {
-    struct Arc arc;
-    int valeur;
-    char couleur;
-
-};
+    struct Arc* arc;
+    int ope;
+    float duree;
+    int nb_pred;
+    int* predecesseur;
+    int station;
+}t_sommet;
 
 /* Alias de pointeur sur un Sommet /
 typedef struct Sommet pSommet;
@@ -31,11 +33,21 @@ typedef struct Sommet pSommet;
 /* Alias d'un Graphe /
 typedef struct Graphe
 {
-    int taille;
-    int orientation;
+    //int couleur_max;
     int ordre;
-    pSommet pSommet;
-} Graphe;
+    int cycle;
+    pSommet* pSommet;
+} t_graphe;
+
+typedef struct station
+{
+    int numero;
+    int taille;
+    float duree;
+    pSommet* pSommet;
+    struct station* station_initial;
+    struct station* station_suivant;
+}t_station;
 
 // créer le graphe
 Graphe* CreerGraphe(int ordre);
