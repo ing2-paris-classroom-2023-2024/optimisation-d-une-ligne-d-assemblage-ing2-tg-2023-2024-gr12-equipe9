@@ -71,10 +71,36 @@ Graphe * lire_graphe(char * nomFichier)
     FILE * ifs = fopen(nomFichier,"r");
     int taille, orientation, ordre, s1, s2;
 
-    if (!ifs)
+   if (!ifs)
     {
         printf("Erreur de lecture fichier\n");
         exit(-1);
+    }
+    if (!ifs2)
+    {
+        printf("Erreur de lecture fichier 2\n");
+        exit(-1);
+    }
+    if (!ifs3)
+    {
+        printf("Erreur de lecture fichier 3\n");
+        exit(-1);
+    }
+    if (!ifs4)
+    {
+        printf("Erreur de lecture fichier 4\n");
+        exit(-1);
+    }
+
+    fscanf(ifs4,"%d",&cycle);
+    graphe->cycle=cycle;
+
+      while (feof(ifs3)==0)
+    {
+        fscanf(ifs3,"%d %d",&pred,&s1);
+        s1=ope_en_sommet(s1,graphe);
+        graphe->pSommet[s1]->predecesseur[graphe->pSommet[s1]->nb_pred]=pred;
+        graphe->pSommet[s1]->nb_pred++;
     }
 
     fscanf(ifs,"%d",&ordre);
