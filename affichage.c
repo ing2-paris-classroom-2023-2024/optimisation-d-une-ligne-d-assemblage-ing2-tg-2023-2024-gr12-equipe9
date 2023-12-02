@@ -1,5 +1,5 @@
 //
-// Created by Paul on 26/11/2023.
+// Created by Timothée on 26/11/2023.
 //
 /* affichage des successeurs du sommet num*/
 #include "graph.h"
