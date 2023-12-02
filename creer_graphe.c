@@ -24,3 +24,38 @@ t_graphe* CreerGraphe(FILE *fichier)
     Newgraphe->ordre--;
     return Newgraphe;
 }
+
+Graphe * lire_graphe(char * nomFichier)
+{
+    Graphe* graphe;
+    FILE * ifs = fopen(nomFichier,"r");
+    int taille, orientation, ordre, s1, s2;
+
+    if (!ifs)
+    {
+        printf("Erreur de lecture fichier\n");
+        exit(-1);
+    }
+
+    fscanf(ifs,"%d",&ordre);
+
+    graphe=CreerGraphe(ordre); // créer le graphe d'ordre sommets
+
+    fscanf(ifs,"%d",&taille);
+    fscanf(ifs,"%d",&orientation);
+
+    graphe->orientation=orientation;
+    graphe->ordre=ordre;
+
+    /* crée les arêtes du graphe */
+    for (int i=0; i<taille; ++i)
+    {
+        fscanf(ifs,"%d%d",&s1,&s2);
+        graphe->pSommet=CreerArete(graphe->pSommet, s1, s2);
+
+        if(!orientation)
+            graphe->pSommet=CreerArete(graphe->pSommet, s2, s1);
+    }
+
+    return graphe; // retourne le graphe cree
+}
