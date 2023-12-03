@@ -43,7 +43,7 @@ void nouvelle_station(t_station *Station)
         exit(EXIT_FAILURE);
     }
 
-    /* Insertion de l'élément à la bonne place */
+    /* Insertion de la station à suite de la dernière (ajout d'un maillon) */
     nouveau->numero = Station->numero + 1;
     nouveau->station_initial = Station->station_initial;
     nouveau->station_suivant = Station->station_suivant;
