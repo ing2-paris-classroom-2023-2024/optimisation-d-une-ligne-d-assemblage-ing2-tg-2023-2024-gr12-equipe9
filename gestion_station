@@ -109,7 +109,7 @@ t_station* creer_ligne(t_graphe *graphe){
 
     if(est_fini(graphe)==0){
 
-        affichage_erreur_op(graphe); // operation non place = erreur grave 
+        affichage_erreur_op(graphe); // operation non place = erreur grave
     }
 
 
