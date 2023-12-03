@@ -116,21 +116,3 @@ t_station* creer_ligne(t_graphe *graphe){
 
     return poste; // retourne de la chaine creer
 }
-
-/* trie les stations */
-void trier_station(t_station *station){
-    int i,j;
-    pSommet temp;
-    while (station!=NULL) {
-        for (i = 0; i < station->taille; i++) {
-            for (j = 0; j < station->taille - 1; j++) {
-                if (station->pSommet[j]->ope > station->pSommet[j + 1]->ope) {
-                    temp = station->pSommet[j];
-                    station->pSommet[j] = station->pSommet[j + 1];
-                    station->pSommet[j + 1] = temp;
-                }
-            }
-        }
-        station = station->station_suivant;
-    }
-}
