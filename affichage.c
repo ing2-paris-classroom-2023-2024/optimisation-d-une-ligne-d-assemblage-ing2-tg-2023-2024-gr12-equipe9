@@ -1,7 +1,6 @@
 //
 // Created by Timothée on 26/11/2023.
 //
-/* affichage des successeurs du sommet num*/
 #include "graph.h"
 
 /* affichage des successeurs du sommet num*/
@@ -54,7 +53,7 @@ void graphe_afficher(t_graphe* graphe)
 
 }
 
-/* affichage de la station selectionne*/
+/* affichage de la station selectionne */
 void afficher_station(t_station *Station)
 {
     int i;
