@@ -70,37 +70,39 @@ void afficher_station(t_station *Station)
     printf("\n");
 }
 
-void affichage_erreur_op (t_graphe* g)
-{
-    int i;
-    printf("erreur, il reste des operations non place\n");
-    printf("les operations restantes sont : \n");
-    for(i=0; i<g->ordre; i++){
-        if(g->pSommet[i]->station==-1)
-            printf("ope %d ",g->pSommet[i]->ope);
-    }
-    printf("\n\n");
-}
-
-void erreur_lecture (void)
-{
-    printf("Erreur de lecture fichier\n");
-    exit(-1);
-}
-
+/* recherche la station demande */
 int ope_en_sommet(int ope, t_graphe *graphe){
     int i;
     for(i=0; i<graphe->ordre; i++){
         if(graphe->pSommet[i]->ope==ope)
-            return i;
+            return i; // retourne le numero de l'operation
     }
-    return -1;
+    return -1; // retourne -1 si inconnue
 }
-void erreur_fichier(int operation, const char* nom_fichier)
+
+
+/* Affichage des different menu */
+void affichage_menu_contrainte(void)
 {
-    printf("erreur lecture de fichier l'operation %d n'existe pas \n",operation);
-    printf("dans le fichier %s\n",nom_fichier);
-    exit(1);
+    printf("Choix de contrainte a explorer plus precisement\n");
+    printf("0 -> exclusion\n");
+    printf("1 -> precedence + temps de cycle\n");
+    printf("2 -> exclusion + precedence\n");
+    printf("3 -> exclusion + temps de cycle\n");
+    printf("4 -> exclusion + precedence + temps de cycle\n");
+}
+
+void affichage_menu_station_sommet(void)
+{
+    printf("Que voulez-vous ?\n");
+    printf("Information sur une operation ( 0 )\n");
+    printf("afficher une station ( 1 )\n");
+    printf("quitter (2)\n");
+}
+
+void choix_operation(void)
+{
+    printf("Quelle operation voulez-vous ?\n");
 }
 
 void affichage_contraite(int choix){
@@ -123,4 +125,53 @@ void affichage_contraite(int choix){
             printf("exclusion + precedence + temps de cycle\n\n");
             break;
     }
+}
+
+void choix_station(void)
+{
+    printf("Quelle station voulez-vous ?\n");
+}
+
+void affichage_staion(void)
+{
+    printf("Affichage des stations : \n\n");
+}
+
+
+/* affichage des differentes erreurs selon le cas */
+
+void erreur_lecture (char *nomFichier)
+{
+    printf("Erreur de lecture fichier : %s\n",nomFichier);
+    exit(-1);
+}
+
+void erreur_fichier(int operation, const char* nom_fichier)
+{
+    printf("erreur lecture de fichier l'operation %d n'existe pas \n",operation);
+    printf("dans le fichier %s\n",nom_fichier);
+    exit(1);
+}
+
+void erreur_choix_operation(void)
+{
+    printf("Operation inconnue!\n");
+    printf("Quelle operation voulez-vous ?\n");
+}
+void erreur_choix_station(void)
+{
+    printf("Station inconnue!\n");
+    printf("Quelle station voulez-vous ?\n");
+}
+
+void affichage_erreur_op (t_graphe* g)
+{
+    int i;
+    printf("erreur, il reste des operations non place\n");
+    printf("les operations restantes sont : \n");
+    for(i=0; i<g->ordre; i++){
+        if(g->pSommet[i]->station==-1)
+            printf("ope %d ",g->pSommet[i]->ope);
+    }
+    printf("\n\n");
 }
