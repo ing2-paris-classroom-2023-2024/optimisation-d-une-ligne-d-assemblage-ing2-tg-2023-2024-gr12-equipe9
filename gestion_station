@@ -23,6 +23,23 @@ void nouvelle_station(t_station *Station)
     Station->station_suivant = nouveau;
 }
 
+void ajout_sommet(t_station *Station, pSommet sommet, t_graphe *graphe)
+{
+    int num;
+    num = ope_en_sommet(sommet->ope,graphe);
+    if (Station == NULL || sommet == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+
+    /* Insertion de l élément à la bonne place */
+    graphe->psommet[num]->station = Station->numero;
+    Station->pSommet[Station->taille] = sommet;
+    sommet->station = Station->numero;
+    Station->duree += sommet->duree;
+    Station->taille++;
+}
+
 int est_fini(t_graphe *g){
     for(int i=0; i<g->ordre; i++){
         if(g->pSommet[i]->station==-1)
