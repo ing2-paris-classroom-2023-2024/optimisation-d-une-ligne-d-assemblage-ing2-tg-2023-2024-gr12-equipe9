@@ -7,7 +7,7 @@
 /* affichage des successeurs du sommet num*/
 void afficher_successeurs(pSommet * sommet, int num,t_graphe* graphe)
 {
-    int sommet_print;
+    int sommet_print,j;
 
     printf("\n\n sommet %d (operation %d avec une duree de %.2f s) dans la station %d :\n",num,sommet[num]->ope,sommet[num]->duree,sommet[num]->station);
 
@@ -28,7 +28,7 @@ void afficher_successeurs(pSommet * sommet, int num,t_graphe* graphe)
     {
         printf("       -> aucune predecesseur \n");
     }
-    for (int (j) = 0; (j) < sommet[num]->nb_pred; ++(j)) {
+    for ((j) = 0; (j) < sommet[num]->nb_pred; ++(j)) {
         printf("       -> %d\n",sommet[num]->predecesseur[j]);
     }
 
@@ -37,6 +37,7 @@ void afficher_successeurs(pSommet * sommet, int num,t_graphe* graphe)
 /* affichage du graphe avec les successeurs de chaque sommet */
 void graphe_afficher(t_graphe* graphe)
 {
+    int i;
     printf("graphe\n");
 
     printf("cycle = %d\n",graphe->cycle);
@@ -45,7 +46,7 @@ void graphe_afficher(t_graphe* graphe)
 
     printf("liste des exclusions : \n");
 
-    for (int i=0; i<graphe->ordre; i++)
+    for (i=0; i<graphe->ordre; i++)
     {
         afficher_successeurs(graphe->pSommet, i,graphe);
         printf("\n");
@@ -56,12 +57,13 @@ void graphe_afficher(t_graphe* graphe)
 /* affichage de la station selectionne*/
 void afficher_station(t_station *Station)
 {
+    int i;
     if (Station == NULL)
     {
         exit(EXIT_FAILURE);
     }
     printf("Station %d :\n", Station->numero);
-    for (int i = 0; i < Station->taille; i++)
+    for (i = 0; i < Station->taille; i++)
     {
         printf("ope %d, duree %.2f s  ",Station->pSommet[i]->ope,Station->pSommet[i]->duree);
         printf("\n");
