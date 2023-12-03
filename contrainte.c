@@ -3,7 +3,7 @@
 //
 #include "graph.h"
 
-/* fonction permettant de verifier la contrainte d'exclusion entre deux sommets*/
+/* fonction permettant de verifier la contrainte d'exclusion entre deux sommets */
 int exclus_present(int ope,t_station* station,t_graphe *g){
     pArc temparc;
     int temp_ope,i;
