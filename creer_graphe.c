@@ -92,6 +92,8 @@ Graphe * lire_graphe(char * nomFichier)
         exit(-1);
     }
 
+    graphe=CreerGraphe(ifs); // créer le graphe d'ordre sommets
+
     fscanf(ifs4,"%d",&cycle);
     graphe->cycle=cycle;
 
@@ -103,25 +105,24 @@ Graphe * lire_graphe(char * nomFichier)
         graphe->pSommet[s1]->nb_pred++;
     }
 
-    fscanf(ifs,"%d",&ordre);
+    
+    
 
-    graphe=CreerGraphe(ordre); // créer le graphe d'ordre sommets
 
-    fscanf(ifs,"%d",&taille);
-    fscanf(ifs,"%d",&orientation);
-
-    graphe->orientation=orientation;
-    graphe->ordre=ordre;
-
-    /* crée les arêtes du graphe */
-    for (int i=0; i<taille; ++i)
-    {
-        fscanf(ifs,"%d%d",&s1,&s2);
-        graphe->pSommet=CreerArete(graphe->pSommet, s1, s2);
-
-        if(!orientation)
-            graphe->pSommet=CreerArete(graphe->pSommet, s2, s1);
-    }
+   //exclusions
+   while (feof(ifs2) == 0) {
+            fscanf(ifs2, "%d %d", &s1, &s2);
+            if(ope_existe(s1,graphe)==0){
+                erreur_fichier(s1,nomFichier2);
+            }
+            if(ope_existe(s2,graphe)==0){
+                erreur_fichier(s2,nomFichier2);
+            }
+            s1 = ope_en_sommet(s1, graphe);
+            s2 = ope_en_sommet(s2, graphe);
+            graphe->pSommet = CreerArete(graphe->pSommet, s1, s2);
+            graphe->pSommet = CreerArete(graphe->pSommet, s2, s1);
+        }
 
     return graphe; // retourne le graphe cree
 }
