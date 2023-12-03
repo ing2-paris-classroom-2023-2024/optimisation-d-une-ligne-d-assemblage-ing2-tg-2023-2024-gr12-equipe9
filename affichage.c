@@ -3,13 +3,13 @@
 //
 /* affichage des successeurs du sommet num*/
 #include "graph.h"
+
+/* affichage des successeurs du sommet num*/
 void afficher_successeurs(pSommet * sommet, int num,t_graphe* graphe)
 {
-    int bruh;// changer
+    int sommet_print;
 
     printf("\n\n sommet %d (operation %d avec une duree de %.2f s) dans la station %d :\n",num,sommet[num]->ope,sommet[num]->duree,sommet[num]->station);
-
-
 
     pArc arc=sommet[num]->arc;
     printf("liste des exclusions : \n");
@@ -19,8 +19,8 @@ void afficher_successeurs(pSommet * sommet, int num,t_graphe* graphe)
     }
     while(arc!=NULL)
     {
-        bruh=sommet_en_ope(arc->sommet,graphe);
-        printf("       -> %d \n",bruh );
+        sommet_print=sommet_en_ope(arc->sommet,graphe);
+        printf("       -> %d \n",sommet_print );
         arc=arc->arc_suivant;
     }
     printf("liste des predecesseurs : \n");
@@ -34,7 +34,7 @@ void afficher_successeurs(pSommet * sommet, int num,t_graphe* graphe)
 
 }
 
-/*affichage du graphe avec les successeurs de chaque sommet */
+/* affichage du graphe avec les successeurs de chaque sommet */
 void graphe_afficher(t_graphe* graphe)
 {
     printf("graphe\n");
