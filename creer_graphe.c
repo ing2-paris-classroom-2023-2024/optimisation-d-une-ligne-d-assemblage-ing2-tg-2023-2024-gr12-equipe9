@@ -1,4 +1,7 @@
-#include "Graphe.h"
+//
+// Created by Paul on 28/11/2023.
+//
+#include "graph.h"
 
 /* Ajouter l'arête entre les sommets s1 et s2 du graphe */
 pSommet* CreerArete(pSommet* sommet,int s1,int s2)
@@ -40,7 +43,7 @@ pSommet* CreerArete(pSommet* sommet,int s1,int s2)
 
 /* creer le graphe */
 t_graphe* CreerGraphe(FILE *fichier)
-{   
+{
     t_graphe * Newgraphe;
     int i,som1;
     float temps;
@@ -65,52 +68,72 @@ t_graphe* CreerGraphe(FILE *fichier)
     return Newgraphe;
 }
 
-Graphe * lire_graphe(char * nomFichier)
-{
-    Graphe* graphe;
-    FILE * ifs = fopen(nomFichier,"r");
-    int taille, orientation, ordre, s1, s2;
 
-   if (!ifs)
+
+/* La construction du réseau peut se faire à partir d'un fichier dont le nom est passé en paramètre
+Le fichier contient : ordre, taille,orientation (0 ou 1)et liste des arcs */
+t_graphe * lire_graphe(char *nomFichier,char *nomFichier2,char *nomFichier3,char *nomFichier4,int choix)
+{
+    t_graphe* graphe;
+
+    FILE *ifs = fopen(nomFichier,"r");    ///1 = temps des operations
+    FILE *ifs2 = fopen(nomFichier2,"r");  ///2= fichier des exclusions
+    FILE *ifs3 = fopen(nomFichier3,"r");  ///3 = fichier des precedences
+    FILE *ifs4 = fopen(nomFichier4,"r");  ///4 = fichier du cycle
+
+    int s1, s2,pred, cycle;
+    s1=0;
+
+    if (!ifs)
     {
-        printf("Erreur de lecture fichier\n");
-        exit(-1);
+        erreur_lecture (nomFichier);
     }
     if (!ifs2)
     {
-        printf("Erreur de lecture fichier 2\n");
-        exit(-1);
+        erreur_lecture (nomFichier2);
     }
     if (!ifs3)
     {
-        printf("Erreur de lecture fichier 3\n");
-        exit(-1);
+        erreur_lecture (nomFichier3);
     }
     if (!ifs4)
     {
-        printf("Erreur de lecture fichier 4\n");
-        exit(-1);
+        erreur_lecture (nomFichier4);
     }
-
+    //on initialise des opérations et la duree de chacun
     graphe=CreerGraphe(ifs); // créer le graphe d'ordre sommets
 
-    fscanf(ifs4,"%d",&cycle);
-    graphe->cycle=cycle;
 
-      while (feof(ifs3)==0)
+
+    /* on commence par donner le cycle du graphe */
+    if (choix==1 || choix>=3 || choix<0)
     {
-        fscanf(ifs3,"%d %d",&pred,&s1);
-        s1=ope_en_sommet(s1,graphe);
-        graphe->pSommet[s1]->predecesseur[graphe->pSommet[s1]->nb_pred]=pred;
-        graphe->pSommet[s1]->nb_pred++;
+        fscanf(ifs4,"%d",&cycle);
+        graphe->cycle=cycle;
+    }
+    else {
+        graphe->cycle = INFINI;
     }
 
-    
-    
+    /* ici on fait la precedence */
+    if (choix==1 || choix>=4 || choix<0||choix==2) {
+        while (feof(ifs3) == 0) {
+            fscanf(ifs3, "%d %d", &pred, &s1);
+            if(ope_existe(pred,graphe)==0){
+                erreur_fichier(pred,nomFichier3);
+            }
+            if(ope_existe(s1,graphe)==0){
+                erreur_fichier(s1,nomFichier3);
+            }
+            s1 = ope_en_sommet(s1, graphe);
+            graphe->pSommet[s1]->predecesseur[graphe->pSommet[s1]->nb_pred] = pred;
+            graphe->pSommet[s1]->nb_pred++;
+        }
+    }
 
-
-   //exclusions
-   while (feof(ifs2) == 0) {
+    /* créer les arêtes du graphe */
+    if (choix!=1) {
+        while (feof(ifs2) == 0) {
             fscanf(ifs2, "%d %d", &s1, &s2);
             if(ope_existe(s1,graphe)==0){
                 erreur_fichier(s1,nomFichier2);
@@ -123,8 +146,8 @@ Graphe * lire_graphe(char * nomFichier)
             graphe->pSommet = CreerArete(graphe->pSommet, s1, s2);
             graphe->pSommet = CreerArete(graphe->pSommet, s2, s1);
         }
-
-    return graphe; // retourne le graphe cree
+    }
+    return graphe;
 }
 
 /* verification si existance du sommet */
